@@ -28,6 +28,10 @@ export function Groups() {
     }
   }
 
+  function handleOpenGroup(group: string) {
+    navigation.navigate("players", { group });
+  }
+
   //useFocusEffect é melhor que useEffect nesse caso porque há uma renderização sempre que a tela está em foco
   //Devemos sempre envolver o resultado do useEffect com o useCallback
   useFocusEffect(
@@ -43,7 +47,9 @@ export function Groups() {
       <FlatList
         data={groups}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => <GroupCard title={item} />}
+        renderItem={({ item }) => (
+          <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
+        )}
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={
           <ListEmpty message="Que tal cadastrar a primeira turma?" />
